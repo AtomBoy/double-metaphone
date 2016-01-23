@@ -1,7 +1,7 @@
 ﻿-- This SQL implements the Double Metaphone algorythm (c) 1998, 1999 by Lawrence Philips
 -- it was translated to Python, and then to SQL from the C source written by Kevin Atkinson (http://aspell.net/metaphone/)
--- By Andrew Collins - Feb, 2007 who claims no rights to this work
--- http://www.atomodo.com/code/double-metaphone/metaphone.sql/view
+-- By Andrew Collins (atomodo.com) - Feb, 2007 who claims no rights to this work
+-- github.com/AtomBoy/double-metaphone
 -- Tested with MySQL 5.1 on Ubuntu 6.01 and Ubuntu 10.4
 -- Updated Nov 27, 2007 to fix a bug in the 'CC' section
 -- Updated Jun 01, 2010 to fix a bug in the 'Z' section - thanks Nils Johnsson!
@@ -10,7 +10,8 @@
 --   as the original C source that were fixed by his careful attention and excellent communication.
 DELIMITER $$
 
-DROP FUNCTION IF EXISTS `flb`.`dm` $$
+DROP FUNCTION IF EXISTS `dm` $$
+
 CREATE FUNCTION `dm`(st VARCHAR(55)) RETURNS varchar(128) CHARSET utf8
     NO SQL
 BEGIN
@@ -119,7 +120,7 @@ BEGIN
 				ELSE
 					SET pri = CONCAT(pri, 'S'), sec = CONCAT(sec, 'S'), pos = pos  + 2; -- nxt = ('S', 2)
 				END IF;
-			ELSE 
+			ELSE
 				-- name sent IN 'mac caffrey', 'mac gregor
 				IF SUBSTRING(st, pos+1, 2) IN (' C', ' Q', ' G') THEN
 					SET pri = CONCAT(pri, 'K'), sec = CONCAT(sec, 'K'), pos = pos  + 3; -- nxt = ('K', 3)
@@ -153,7 +154,7 @@ BEGIN
 			END IF;
 		WHEN ch = 'G' THEN
 			IF SUBSTRING(st, pos+1, 1) = 'H' THEN
-				IF (pos > first AND SUBSTRING(st, pos-1, 1) NOT IN ('A', 'E', 'I', 'O', 'U', 'Y')) 
+				IF (pos > first AND SUBSTRING(st, pos-1, 1) NOT IN ('A', 'E', 'I', 'O', 'U', 'Y'))
 					OR ( pos = first AND SUBSTRING(st, pos+2, 1) != 'I') THEN
 					SET pri = CONCAT(pri, 'K'), sec = CONCAT(sec, 'K'), pos = pos  + 2; -- nxt = ('K', 2)
 				ELSEIF pos = first AND SUBSTRING(st, pos+2, 1) = 'I' THEN
@@ -219,7 +220,7 @@ BEGIN
 			END IF;
 		WHEN ch = 'H' THEN
 			--  only keep IF first & before vowel OR btw. 2 ('A', 'E', 'I', 'O', 'U', 'Y')
-			IF (pos = first OR SUBSTRING(st, pos-1, 1) IN ('A', 'E', 'I', 'O', 'U', 'Y')) 
+			IF (pos = first OR SUBSTRING(st, pos-1, 1) IN ('A', 'E', 'I', 'O', 'U', 'Y'))
 				AND SUBSTRING(st, pos+1, 1) IN ('A', 'E', 'I', 'O', 'U', 'Y') THEN
 				SET pri = CONCAT(pri, 'H'), sec = CONCAT(sec, 'H'), pos = pos  + 2; -- nxt = ('H', 2)
 			ELSE --  (also takes care of 'HH')

@@ -2,8 +2,8 @@
 #coding= utf-8
 # This script implements the Double Metaphone algorythm (c) 1998, 1999 by Lawrence Philips
 # it was translated to Python from the C source written by Kevin Atkinson (http://aspell.net/metaphone/)
-# By Andrew Collins - January 12, 2007 who claims no rights to this work
-# http://www.atomodo.com/code/double-metaphone/metaphone.py/view
+# By Andrew Collins (atomodo.com) - January 12, 2007 who claims no rights to this work
+# github.com/AtomBoy/double-metaphonekm
 # Tested with Pyhon 2.4.3
 # Updated Feb 14, 2007 - Found a typo in the 'gh' section
 # Updated Dec 17, 2007 - Bugs fixed in 'S', 'Z', and 'J' sections. Thanks Chris Leong!
@@ -110,7 +110,7 @@ def dm(st) :
 					nxt = ('S', 'X', 2)
 				else :
 					nxt = ('S', 2)
-			else : 
+			else :
 				#name sent in 'mac caffrey', 'mac gregor
 				if st[pos+1:pos+3] in [" C", " Q", " G"] :
 					nxt = ('K', 3)
@@ -151,7 +151,7 @@ def dm(st) :
 				   or (pos > (first + 2) and st[pos-3] in ['B', 'H', 'D'] ) \
 				   or (pos > (first + 3) and st[pos-4] in ['B', 'H'] ) :
 					nxt = (None, 2)
-				else : 
+				else :
 					# e.g., 'laugh', 'McLaughlin', 'cough', 'gough', 'rough', 'tough'
 					if pos > (first + 2) and st[pos-1] == 'U' \
 					   and st[pos-3] in ["C", "G", "L", "R", "T"] :
