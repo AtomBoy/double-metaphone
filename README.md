@@ -33,5 +33,8 @@ INSERT INTO people (lastName, lastNameDM) VALUES (${lastName}, dm(${lastName}))
 Then query for matches against the `latNameDM` column computing only the name to find:
 
 ```sql
-SELECT * FROM people WHERE lastNameDM = db(${inputLastName})
+SELECT * FROM people WHERE lastNameDM = dm(${inputLastName})
 ```
+
+Checking for equality is the simplest, but `dm()` can return two metaphones- a primary and a secondary
+separated by a semicolon. You can check that any metaphone matches any other metaphone for looser matches.
