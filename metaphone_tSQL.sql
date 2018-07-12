@@ -822,6 +822,12 @@ BEGIN
 								SET @sec = CONCAT(@sec, 'F');
 								SET @pos = @pos  + 1; -- nxt = ('A', 'F', 1)
 							END
+						ELSE IF SUBSTRING(@String, @pos, 3) = 'WHO'
+							BEGIN
+								SET @pri = CONCAT(@pri, 'H');
+								SET @sec = CONCAT(@sec, 'H');
+								SET @pos = @pos  + 1; -- nxt = ('H', 1)
+							END
 						ELSE
 							BEGIN
 								SET @pri = CONCAT(@pri, 'A');

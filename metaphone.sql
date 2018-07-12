@@ -416,6 +416,8 @@ BEGIN
 				--  Wasserman should match Vasserman
 				IF SUBSTRING(st, pos+1, 1) IN ('A', 'E', 'I', 'O', 'U', 'Y') THEN
 					SET pri = CONCAT(pri, 'A'), sec = CONCAT(sec, 'F'), pos = pos  + 1; -- nxt = ('A', 'F', 1)
+				ELSEIF SUBSTRING(st, pos, 3) = 'WHO' THEN
+					SET pri = CONCAT(pri, 'H'), sec = CONCAT(sec, 'H'), pos = pos  + 1; -- nxt = ('H', 1)
 				ELSE
 					SET pri = CONCAT(pri, 'A'), sec = CONCAT(sec, 'A'), pos = pos  + 1; -- nxt = ('A', 1)
 				END IF;

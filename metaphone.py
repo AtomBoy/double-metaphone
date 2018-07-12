@@ -11,6 +11,7 @@
 #	bug squashing effort. There were many cases where this function wouldn't give the same output
 #	as the original C source that were fixed by his careful attention and excellent communication.
 #	The script was also updated to use utf-8 rather than latin-1.
+# Updated Jul 12, 2018 - Added a case to map 'who' to 'H' rather than 'A'
 def dm(st) :
 	"""dm(string) -> (string, string or None)
 	returns the double metaphone codes for given string - always a tuple
@@ -366,6 +367,8 @@ def dm(st) :
 				# Wasserman should match Vasserman
 				if st[pos+1] in vowels :
 					nxt = ('A', 'F', 1)
+				elif st[pos:pos+3] == 'WHO' :
+					nxt = ('H', 1)
 				else :
 					nxt = ('A', 1)
 			# Arnow should match Arnoff
